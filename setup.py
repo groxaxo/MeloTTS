@@ -28,13 +28,14 @@ setup(
     include_package_data=True,
     install_requires=reqs,
     package_data={
-        '': ['*.txt', 'cmudict_*'],
+        '': ['*.txt', 'cmudict_*', '*.html'],
     },
     entry_points={
         "console_scripts": [
             "melotts = melo.main:main",
             "melo = melo.main:main",
             "melo-ui = melo.app:main",
+            "melo-server = start_server:main",
         ],
     },
 )

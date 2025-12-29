@@ -27,3 +27,8 @@ langid==1.1.6
 tqdm
 tensorboard==2.16.2
 loguru==0.7.2
+# FastAPI server dependencies
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+python-multipart>=0.0.6
+scipy>=1.10.0
