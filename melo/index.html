@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MeloTTS - Text to Speech Demo</title>
+  <style>
+    :root {
+      --bg: #f5f7fc;
+      --surface: #ffffff;
+      --accent: #5562ff;
+      --accent-strong: #3f4dff;
+      --text-primary: #1f2742;
+      --text-muted: #5d6789;
+      --border: rgba(85, 98, 255, 0.18);
+      --shadow: 0 18px 45px rgba(31, 39, 66, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, sans-serif;
+      color: var(--text-primary);
+      display: flex;
+      justify-content: center;
+      padding: 48px 20px;
+    }
+
+    .app-shell {
+      width: min(960px, 100%);
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 36px 40px 44px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: -15px;
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text-primary);
+    }
+
+    .text-input {
+      width: 100%;
+      min-height: 140px;
+      max-height: 240px;
+      border: 1px solid rgba(31, 39, 66, 0.14);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 15px;
+      line-height: 1.6;
+      font-family: inherit;
+      background: #f9faff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      resize: vertical;
+    }
+
+    .text-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(85, 98, 255, 0.18);
+      background: #fff;
+    }
+
+    .control-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .inline-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .select-control {
+      width: 280px;
+      border: 1px solid rgba(31, 39, 66, 0.14);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fbfcff;
+      color: var(--text-primary);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .select-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(85, 98, 255, 0.18);
+      background: #fff;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px 28px;
+    }
+
+    .range-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-primary);
+    }
+
+    .range-control input[type="range"] {
+      width: 200px;
+      accent-color: var(--accent);
+    }
+
+    .range-value {
+      font-weight: 600;
+      color: var(--text-primary);
+      min-width: 42px;
+      text-align: right;
+    }
+
+    .primary-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 8px 16px rgba(85, 98, 255, 0.25);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(85, 98, 255, 0.28);
+    }
+
+    .primary-btn:active {
+      transform: translateY(0);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .secondary-btn {
+      border: 1px solid rgba(31, 39, 66, 0.18);
+      background: #f1f3ff;
+      color: var(--text-primary);
+      padding: 8px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .secondary-btn:hover {
+      background: #e6e9ff;
+      border-color: rgba(31, 39, 66, 0.26);
+    }
+
+    .secondary-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .audio-player {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .helper-text {
+      font-size: 12px;
+      color: #8a93b5;
+      margin-top: 5px;
+    }
+
+    .status-message {
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .status-message.success {
+      background: #e8f5e9;
+      color: #2e7d32;
+      border: 1px solid #81c784;
+    }
+
+    .status-message.error {
+      background: #ffebee;
+      color: #c62828;
+      border: 1px solid #e57373;
+    }
+
+    .status-message.info {
+      background: #e3f2fd;
+      color: #1565c0;
+      border: 1px solid #64b5f6;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      padding-top: 20px;
+      border-top: 1px solid rgba(31, 39, 66, 0.1);
+    }
+
+    .footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 720px) {
+      .app-shell {
+        padding: 28px 20px 36px;
+        gap: 24px;
+      }
+
+      .select-control {
+        width: 100%;
+      }
+
+      .control-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .primary-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <h1>🎵 MeloTTS</h1>
+    <p class="subtitle">High-quality multi-lingual text-to-speech with OpenAI-compatible API</p>
+
+    <section class="panel">
+      <label class="field">
+        <span class="field-label">Text to Speak</span>
+        <textarea
+          id="textInput"
+          class="text-input"
+          rows="6"
+          placeholder="Enter your text here and click Generate to hear high-quality TTS output...">The field of text-to-speech has seen rapid development recently.</textarea>
+        <span class="helper-text">Text will be automatically normalized (URLs, numbers, symbols, etc.) before processing.</span>
+      </label>
+    </section>
+
+    <section class="panel control-panel">
+      <div class="inline-field">
+        <span class="field-label">Voice / Speaker</span>
+        <select id="voiceSelect" class="select-control">
+          <option value="">Loading voices...</option>
+        </select>
+      </div>
+
+      <div class="control-row">
+        <label class="range-control">
+          <span>Speed</span>
+          <input id="speedControl" type="range" min="0.5" max="2.0" step="0.1" value="1.0" />
+          <span class="range-value" id="speedValue">1.0</span>
+        </label>
+        
+        <div class="inline-field">
+          <span class="field-label">Output Format</span>
+          <select id="formatSelect" class="select-control" style="width: 150px;">
+            <option value="opus">Opus</option>
+            <option value="mp3">MP3</option>
+            <option value="wav">WAV</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="control-row">
+        <button id="generateBtn" class="primary-btn">Generate Speech</button>
+        <button id="downloadBtn" class="secondary-btn" style="display: none;">Download Audio</button>
+      </div>
+    </section>
+
+    <section class="panel" id="audioSection" style="display: none;">
+      <span class="field-label">Generated Audio</span>
+      <audio id="audioPlayer" class="audio-player" controls></audio>
+    </section>
+
+    <div id="statusMessage"></div>
+
+    <div class="footer">
+      <p>Powered by <a href="https://github.com/myshell-ai/MeloTTS" target="_blank">MeloTTS</a> • 
+      OpenAI API Compatible • FlashSR Audio Upsampling</p>
+    </div>
+  </div>
+
+  <script>
+    const textInput = document.getElementById('textInput');
+    const voiceSelect = document.getElementById('voiceSelect');
+    const speedControl = document.getElementById('speedControl');
+    const speedValue = document.getElementById('speedValue');
+    const formatSelect = document.getElementById('formatSelect');
+    const generateBtn = document.getElementById('generateBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const audioSection = document.getElementById('audioSection');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const statusMessage = document.getElementById('statusMessage');
+
+    let currentAudioBlob = null;
+
+    // Update speed display
+    speedControl.addEventListener('input', () => {
+      speedValue.textContent = speedControl.value;
+    });
+
+    // Load available voices
+    async function loadVoices() {
+      try {
+        const response = await fetch('/v1/audio/voices');
+        if (!response.ok) throw new Error('Failed to fetch voices');
+        
+        const data = await response.json();
+        voiceSelect.innerHTML = '';
+        
+        if (data.voices && data.voices.length > 0) {
+          data.voices.forEach(voice => {
+            const option = document.createElement('option');
+            option.value = voice.id;
+            option.textContent = `${voice.name} (${voice.language})`;
+            voiceSelect.appendChild(option);
+          });
+          showStatus('Voices loaded successfully!', 'success');
+        } else {
+          voiceSelect.innerHTML = '<option>No voices available</option>';
+          showStatus('No voices available', 'error');
+        }
+      } catch (error) {
+        console.error('Error loading voices:', error);
+        voiceSelect.innerHTML = '<option>Failed to load voices</option>';
+        showStatus('Failed to load voices: ' + error.message, 'error');
+      }
+    }
+
+    // Show status message
+    function showStatus(message, type = 'info') {
+      statusMessage.className = `status-message ${type}`;
+      statusMessage.textContent = message;
+      statusMessage.style.display = 'block';
+      
+      if (type === 'success' || type === 'info') {
+        setTimeout(() => {
+          statusMessage.style.display = 'none';
+        }, 5000);
+      }
+    }
+
+    // Generate speech
+    async function generateSpeech() {
+      const text = textInput.value.trim();
+      
+      if (!text) {
+        showStatus('Please enter some text to speak', 'error');
+        return;
+      }
+
+      const voice = voiceSelect.value;
+      const speed = parseFloat(speedControl.value);
+      const format = formatSelect.value;
+
+      generateBtn.disabled = true;
+      generateBtn.textContent = 'Generating...';
+      showStatus('Generating speech...', 'info');
+
+      try {
+        const response = await fetch('/v1/audio/speech', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            model: 'tts-1',
+            input: text,
+            voice: voice,
+            speed: speed,
+            response_format: format
+          })
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(`Server error: ${errorText}`);
+        }
+
+        const audioBlob = await response.blob();
+        currentAudioBlob = audioBlob;
+        
+        const audioUrl = URL.createObjectURL(audioBlob);
+        audioPlayer.src = audioUrl;
+        audioSection.style.display = 'block';
+        downloadBtn.style.display = 'inline-block';
+        
+        // Auto-play the audio
+        audioPlayer.play().catch(e => console.log('Auto-play prevented:', e));
+        
+        showStatus('Speech generated successfully!', 'success');
+      } catch (error) {
+        console.error('Error generating speech:', error);
+        showStatus('Failed to generate speech: ' + error.message, 'error');
+      } finally {
+        generateBtn.disabled = false;
+        generateBtn.textContent = 'Generate Speech';
+      }
+    }
+
+    // Download audio
+    function downloadAudio() {
+      if (!currentAudioBlob) return;
+      
+      const format = formatSelect.value;
+      const url = URL.createObjectURL(currentAudioBlob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `melotts_speech.${format}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      showStatus('Audio downloaded!', 'success');
+    }
+
+    // Event listeners
+    generateBtn.addEventListener('click', generateSpeech);
+    downloadBtn.addEventListener('click', downloadAudio);
+
+    // Allow Enter key to generate (with Shift+Enter for new lines)
+    textInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        generateSpeech();
+      }
+    });
+
+    // Load voices on page load
+    loadVoices();
+  </script>
+</body>
+</html>
