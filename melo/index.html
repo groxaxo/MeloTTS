@@ -320,6 +320,11 @@
             <option value="wav">WAV</option>
           </select>
         </div>
+        
+        <label class="range-control" style="cursor: pointer;">
+          <input id="upsamplingToggle" type="checkbox" checked style="cursor: pointer; width: auto; accent-color: var(--accent);" />
+          <span>Audio Upsampling (FlashSR)</span>
+        </label>
       </div>
 
       <div class="control-row">
@@ -347,6 +352,7 @@
     const speedControl = document.getElementById('speedControl');
     const speedValue = document.getElementById('speedValue');
     const formatSelect = document.getElementById('formatSelect');
+    const upsamplingToggle = document.getElementById('upsamplingToggle');
     const generateBtn = document.getElementById('generateBtn');
     const downloadBtn = document.getElementById('downloadBtn');
     const audioSection = document.getElementById('audioSection');
@@ -413,6 +419,7 @@
       const voice = voiceSelect.value;
       const speed = parseFloat(speedControl.value);
       const format = formatSelect.value;
+      const enableUpsampling = upsamplingToggle.checked;
 
       generateBtn.disabled = true;
       generateBtn.textContent = 'Generating...';
@@ -429,7 +436,8 @@
             input: text,
             voice: voice,
             speed: speed,
-            response_format: format
+            response_format: format,
+            enable_upsampling: enableUpsampling
           })
         });
 
