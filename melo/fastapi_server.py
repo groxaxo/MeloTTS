@@ -116,8 +116,9 @@ async def create_speech(request: OpenAISpeechRequest):
         
         # Apply FlashSR upsampling if enabled (check both global setting and per-request setting)
         output_sample_rate = SAMPLE_RATE
-        should_upsample = request.enable_upsampling if request.enable_upsampling is not None else (flashsr_upsampler and flashsr_upsampler.enabled)
-        if should_upsample and flashsr_upsampler:
+        # Use request parameter if provided, otherwise fall back to global setting
+        use_upsampling = request.enable_upsampling if request.enable_upsampling is not None else (flashsr_upsampler and flashsr_upsampler.enabled)
+        if use_upsampling and flashsr_upsampler:
             audio = flashsr_upsampler.upsample(audio, sample_rate=SAMPLE_RATE)
             output_sample_rate = UPSAMPLED_RATE
         
