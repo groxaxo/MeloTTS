@@ -217,9 +217,10 @@ FlashSR upsampling is **flexible and configurable**:
    {
      "input": "Your text here",
      "voice": "EN-US",
-     "enable_upsampling": true  // Override global setting
+     "enable_upsampling": true
    }
    ```
+   *(Note: `enable_upsampling` overrides global setting)*
 
 3. **Web UI Toggle**: Enable/disable with checkbox in the web interface
 
