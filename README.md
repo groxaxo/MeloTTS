@@ -2,77 +2,83 @@
   <div>&nbsp;</div>
   <img src="logo.png" width="300"/> <br>
   <a href="https://trendshift.io/repositories/8133" target="_blank"><img src="https://trendshift.io/api/badge/repositories/8133" alt="myshell-ai%2FMeloTTS | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+  
+  <h2>🎵 High-Quality Multi-Lingual Text-to-Speech</h2>
+  <p><strong>Fast, Open-Source, and Production-Ready</strong></p>
+  
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+  [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+  [![FastAPI](https://img.shields.io/badge/FastAPI-0.109+-green.svg)](https://fastapi.tiangolo.com)
 </div>
 
-## Introduction
-MeloTTS is a **high-quality multi-lingual** text-to-speech library by [MIT](https://www.mit.edu/) and [MyShell.ai](https://myshell.ai).
+---
 
-### 🚀 New Features
+## 🌟 Why MeloTTS?
 
-- **OpenAI-Compatible API**: Drop-in replacement for OpenAI's TTS API with FastAPI server
-- **FlashSR Audio Upsampling**: Ultra-fast upsampling from 24kHz → 48kHz at 200-400x realtime
-- **Advanced Text Processing**: Automatic normalization of URLs, numbers, symbols, and more
-- **Interactive Web UI**: Built-in web interface for easy testing and demo
-- **Multiple Audio Formats**: Support for Opus, MP3, and WAV output formats
+MeloTTS is a **high-quality multi-lingual** text-to-speech library by [MIT](https://www.mit.edu/) and [MyShell.ai](https://myshell.ai), designed for production use with cutting-edge features:
 
-### Supported Languages
+✨ **10 Language Variants** - English (5 accents), Spanish, French, Chinese, Japanese, Korean  
+⚡ **Real-Time on CPU** - Fast enough for production without GPU  
+🎯 **OpenAI API Compatible** - Drop-in replacement for OpenAI TTS API  
+🚀 **Optional Audio Upsampling** - Ultra-fast 24kHz→48kHz with FlashSR (200-400x realtime)  
+🌐 **Interactive Web UI** - Test and demo instantly  
+🔧 **Smart Text Processing** - Auto-normalize URLs, numbers, symbols, and more  
+📦 **Multiple Formats** - Opus, MP3, and WAV output
 
-MeloTTS supports the following languages:
+## 🗣️ Supported Languages
 
-| Language | Example |
-| --- | --- |
-| English (American)    | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/en/EN-US/speed_1.0/sent_000.wav) |
-| English (British)     | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/en/EN-BR/speed_1.0/sent_000.wav) |
-| English (Indian)      | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/en/EN_INDIA/speed_1.0/sent_000.wav) |
-| English (Australian)  | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/en/EN-AU/speed_1.0/sent_000.wav) |
-| English (Default)     | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/en/EN-Default/speed_1.0/sent_000.wav) |
-| Spanish               | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/es/ES/speed_1.0/sent_000.wav) |
-| French                | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/fr/FR/speed_1.0/sent_000.wav) |
-| Chinese (mix EN)      | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/zh/ZH/speed_1.0/sent_008.wav) |
-| Japanese              | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/jp/JP/speed_1.0/sent_000.wav) |
-| Korean                | [Link](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/kr/KR/speed_1.0/sent_000.wav) |
+| Language | Accents/Variants | Example Audio |
+| --- | --- | --- |
+| **English** | American, British, Indian, Australian, Default | [🔊 Listen](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/en/EN-US/speed_1.0/sent_000.wav) |
+| **Spanish** | ES | [🔊 Listen](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/es/ES/speed_1.0/sent_000.wav) |
+| **French** | FR | [🔊 Listen](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/fr/FR/speed_1.0/sent_000.wav) |
+| **Chinese** | ZH (Mixed Chinese & English) | [🔊 Listen](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/zh/ZH/speed_1.0/sent_008.wav) |
+| **Japanese** | JP | [🔊 Listen](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/jp/JP/speed_1.0/sent_000.wav) |
+| **Korean** | KR | [🔊 Listen](https://myshell-public-repo-host.s3.amazonaws.com/myshellttsbase/examples/kr/KR/speed_1.0/sent_000.wav) |
 
-Some other features include:
-- The Chinese speaker supports `mixed Chinese and English`.
-- Fast enough for `CPU real-time inference`.
+> 💡 **Note:** Spanish model uses [myshell-ai/MeloTTS-Spanish](https://huggingface.co/myshell-ai/MeloTTS-Spanish) from HuggingFace
 
-## ⚡ Quick Start with FastAPI Server
+---
 
-### Installation
+## ⚡ Quick Start
 
-1. **Clone the repository**:
+### 🚀 Get Started in 3 Steps
+
+1. **Clone and Install**:
    ```bash
    git clone https://github.com/groxaxo/MeloTTS.git
    cd MeloTTS
-   ```
-
-2. **Install dependencies**:
-   ```bash
    pip install -r requirements.txt
-   python -m unidic download
+   python -m unidic download  # Required for Japanese support
    ```
 
-3. **Run the FastAPI server**:
+2. **Start the Server**:
    ```bash
    python -m melo.fastapi_server
+   # Server starts at http://0.0.0.0:8000
    ```
 
-   The server will start at `http://0.0.0.0:8000`
+3. **Try It Out**:
+   - **Web UI**: Open `http://127.0.0.1:8000` in your browser
+   - **API Docs**: Visit `http://127.0.0.1:8000/docs` for interactive API documentation
 
-4. **Access the Web UI**:
-   Open your browser and navigate to `http://127.0.0.1:8000`
+### ⚙️ Configuration Options
 
-### Environment Variables
+Control server behavior with command-line flags or environment variables:
 
-- `MODEL_DEVICE`: Device to use (`auto`, `cuda`, `mps`, or `cpu`). Default: `auto`
-- `ENABLE_FLASHSR`: Enable FlashSR audio upsampling (`true` or `false`). Default: `true`
-
-Example:
 ```bash
-export ENABLE_FLASHSR=true
-export MODEL_DEVICE=cuda
+# Start with custom settings
+python start_server.py --port 8000 --device cuda --disable-flashsr
+
+# Or use environment variables
+export MODEL_DEVICE=cuda              # Device: auto, cpu, cuda, mps
+export ENABLE_FLASHSR=true           # Enable/disable audio upsampling globally
 python -m melo.fastapi_server
 ```
+
+> **💡 Tip:** FlashSR upsampling can also be controlled per-request via the API (see below)
+
+---
 
 ## 📖 API Documentation
 
@@ -82,15 +88,30 @@ python -m melo.fastapi_server
 
 Generates audio from text with optional FlashSR upsampling (24kHz → 48kHz).
 
-**Example using cURL**:
+**Example with Spanish**:
 ```bash
 curl http://127.0.0.1:8000/v1/audio/speech \
   -H "Content-Type: application/json" \
   -d '{
     "model": "tts-1",
-    "input": "Hello, this is MeloTTS with FlashSR upsampling!",
+    "input": "Hola, bienvenido a MeloTTS. Esta es una prueba de voz en español.",
+    "voice": "ES",
+    "response_format": "mp3",
+    "enable_upsampling": true
+  }' \
+  --output speech_es.mp3
+```
+
+**Example with Upsampling Control**:
+```bash
+curl http://127.0.0.1:8000/v1/audio/speech \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "tts-1",
+    "input": "Hello, this is MeloTTS!",
     "voice": "EN-Default",
-    "response_format": "opus"
+    "response_format": "opus",
+    "enable_upsampling": false
   }' \
   --output speech.opus
 ```
@@ -106,7 +127,8 @@ response = requests.post(
         "input": "The field of text-to-speech has seen rapid development recently.",
         "voice": "EN-US",
         "response_format": "mp3",
-        "speed": 1.0
+        "speed": 1.0,
+        "enable_upsampling": True  # Optional: control upsampling per request
     }
 )
 
@@ -123,6 +145,7 @@ with open("output.mp3", "wb") as f:
 | `voice` | `string` | Voice/speaker ID (see available voices below). |
 | `response_format` | `string` | Output format: `opus` (default), `mp3`, or `wav`. |
 | `speed` | `float` | Speech speed (0.5 to 2.0). Default: 1.0 |
+| `enable_upsampling` | `boolean` | **Optional**: Enable/disable FlashSR upsampling for this request. If not specified, uses server default. |
 
 ### List Available Voices
 
@@ -168,57 +191,74 @@ curl http://127.0.0.1:8000/v1/audio/voices
 - EN-AU (Australian)
 
 **Other Languages**:
-- ES (Spanish)
+- ES (Spanish) - [Model on HuggingFace](https://huggingface.co/myshell-ai/MeloTTS-Spanish)
 - FR (French)
 - ZH (Chinese - supports mixed Chinese and English)
 - JP (Japanese)
 - KR (Korean)
 
-## 🎯 Features
+---
 
-### FlashSR Audio Super-Resolution
+## 🎯 Key Features
 
-FlashSR is **enabled by default** to upsample audio from the native sample rate to 48kHz at ultra-fast speeds (200-400x realtime). This provides:
+### 🎚️ Optional Audio Upsampling (FlashSR)
 
-- Higher quality 48kHz audio output
-- Minimal performance impact
-- Better compatibility with modern audio formats (especially Opus)
+FlashSR upsampling is **flexible and configurable**:
 
-To disable FlashSR:
-```bash
-export ENABLE_FLASHSR=false
-python -m melo.fastapi_server
-```
+**Control Options**:
+1. **Global Setting** (via environment variable):
+   ```bash
+   export ENABLE_FLASHSR=true  # Default
+   python -m melo.fastapi_server
+   ```
 
-### Advanced Text Processing
+2. **Per-Request Control** (via API parameter):
+   ```json
+   {
+     "input": "Your text here",
+     "voice": "EN-US",
+     "enable_upsampling": true  // Override global setting
+   }
+   ```
 
-Text is automatically normalized before TTS processing, including:
+3. **Web UI Toggle**: Enable/disable with checkbox in the web interface
 
-- **URLs and Emails**: Converted to speakable format
-- **Numbers**: "123" → "one hundred twenty-three"
-- **Money**: "$50.25" → "fifty dollars and twenty-five cents"
-- **Units**: "5km" → "five kilometers"
-- **Phone Numbers**: Spoken digit by digit
-- **Time**: "3:45 PM" → "three forty-five PM"
-- **Symbols**: Replaced with spoken equivalents
-- **CJK Punctuation**: Normalized for better pronunciation
+**Benefits**:
+- ✅ Higher quality 48kHz audio output
+- ✅ Minimal performance impact (200-400x realtime)
+- ✅ Better compatibility with modern audio formats (especially Opus)
+- ✅ Optional - use when you need it!
 
-### Web Interface
+### 🔤 Smart Text Processing
 
-The built-in web UI provides:
-- Easy text-to-speech generation
-- Voice selection dropdown
-- Speed control
-- Output format selection
-- Audio playback and download
-- Real-time status updates
+Text is **automatically normalized** before TTS processing for natural-sounding speech:
 
-## 🔧 Command Line Usage
-- [Use without Installation](docs/quick_use.md)
-- [Install and Use Locally](docs/install.md)
-- [Training on Custom Dataset](docs/training.md)
+| Input | Normalized Output |
+|-------|------------------|
+| `https://example.com` | "https example dot com" |
+| `user@email.com` | "user at email dot com" |
+| `$50.25` | "fifty dollars and twenty-five cents" |
+| `123` | "one hundred twenty-three" |
+| `5km` | "five kilometers" |
+| `3:45 PM` | "three forty-five PM" |
+| Phone numbers | Spoken digit by digit |
+| Symbols & punctuation | Spoken equivalents |
 
-## 🔧 Command Line Usage
+### 🎨 Interactive Web Interface
+
+Access the modern web UI at `http://127.0.0.1:8000`:
+
+- 📝 Text input with real-time editing
+- 🎤 Voice/speaker selection across all languages
+- ⚡ Speed control (0.5x - 2.0x)
+- 🎵 Audio upsampling toggle (FlashSR)
+- 📦 Format selection (Opus, MP3, WAV)
+- ▶️ Instant audio playback
+- ⬇️ One-click download
+
+---
+
+## 🔧 Alternative Usage Methods
 
 ### Traditional CLI
 - [Use without Installation](docs/quick_use.md)
@@ -233,6 +273,8 @@ Run the original Gradio-based web UI:
 ```bash
 melo-ui
 ```
+
+---
 
 ## 💻 Python API Usage
 
@@ -262,6 +304,8 @@ upsampler.load()
 upsampled_audio = upsampler.upsample(audio, sample_rate=44100)
 ```
 
+---
+
 ## 🐳 Docker Support
 
 Build and run with Docker:
@@ -271,16 +315,17 @@ docker build -t melotts .
 docker run -p 8000:8000 melotts
 ```
 
-## 🤝 Contributing
+---
 
 ## 🤝 Contributing
 
 If you find this work useful, please consider contributing to this repo.
 
-- Many thanks to [@fakerybakery](https://github.com/fakerybakery) for adding the Web UI and CLI part.
-- Thanks to the [vibevoice-realtimeFASTAPI](https://github.com/groxaxo/vibevoice-realtimeFASTAPI) project for inspiration on FlashSR upsampling and text processing.
+**Special Thanks**:
+- [@fakerybakery](https://github.com/fakerybakery) for adding the Web UI and CLI part
+- [vibevoice-realtimeFASTAPI](https://github.com/groxaxo/vibevoice-realtimeFASTAPI) for FlashSR upsampling and text processing inspiration
 
-## 👥 Authors
+---
 
 ## 👥 Authors
 
@@ -294,7 +339,8 @@ If you find this work useful, please consider contributing to this repo.
 - FlashSR audio upsampling integration
 - Advanced text processing and normalization
 
-## 📄 Citation
+---
+
 ## 📄 Citation
 
 ```bibtex
@@ -306,11 +352,13 @@ If you find this work useful, please consider contributing to this repo.
 }
 ```
 
-## 📜 License
+---
 
 ## 📜 License
 
 This library is under MIT License, which means it is free for both commercial and non-commercial use.
+
+---
 
 ## 🙏 Acknowledgements
 
@@ -319,3 +367,10 @@ This implementation is based on [TTS](https://github.com/coqui-ai/TTS), [VITS](h
 Additional features inspired by:
 - [vibevoice-realtimeFASTAPI](https://github.com/groxaxo/vibevoice-realtimeFASTAPI) - FlashSR upsampling and API design
 - [Kokoro-FastAPI](https://github.com/remsky/Kokoro-FastAPI) - Text processing and normalization logic
+
+---
+
+<div align="center">
+  <p><strong>⭐ Star this repo if you find it useful!</strong></p>
+  <p>Made with ❤️ by the MeloTTS community</p>
+</div>

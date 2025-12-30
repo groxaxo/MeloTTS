@@ -35,6 +35,7 @@ class OpenAISpeechRequest(BaseModel):
     voice: Optional[str] = "EN-Default"
     response_format: Optional[str] = "opus"  # opus, mp3, wav
     speed: Optional[float] = 1.0
+    enable_upsampling: Optional[bool] = None  # Control FlashSR upsampling per request
 
 
 @app.on_event("startup")
@@ -113,9 +114,10 @@ async def create_speech(request: OpenAISpeechRequest):
         if audio is None or len(audio) == 0:
             raise HTTPException(status_code=500, detail="Failed to generate audio")
         
-        # Apply FlashSR upsampling if enabled
+        # Apply FlashSR upsampling if enabled (check both global setting and per-request setting)
         output_sample_rate = SAMPLE_RATE
-        if flashsr_upsampler and flashsr_upsampler.enabled:
+        should_upsample = request.enable_upsampling if request.enable_upsampling is not None else (flashsr_upsampler and flashsr_upsampler.enabled)
+        if should_upsample and flashsr_upsampler:
             audio = flashsr_upsampler.upsample(audio, sample_rate=SAMPLE_RATE)
             output_sample_rate = UPSAMPLED_RATE
         
